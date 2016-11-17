@@ -27,8 +27,14 @@ public:
         do {
             memset(&aes_key, 0, sizeof(AES_KEY));
             memcpy(k, key.c_str(), AES_BLOCK_SIZE);
-            len = srclen % AES_BLOCK_SIZE == 0 ? srclen : ((srclen / AES_BLOCK_SIZE) + 1) * AES_BLOCK_SIZE;
-
+            //len = srclen % AES_BLOCK_SIZE == 0 ? srclen : ((srclen / AES_BLOCK_SIZE) + 1) * AES_BLOCK_SIZE;
+            //new add
+            if ((src.length() + 1) % AES_BLOCK_SIZE == 0) {
+                    len = src.length() + 1;
+            }
+            else {
+                    len = ((src.length() + 1) / AES_BLOCK_SIZE + 1) * AES_BLOCK_SIZE;
+            }//new add
             in_data = (char *)calloc(len + 1, sizeof(char));
             if(in_data == NULL) {
                 break;
